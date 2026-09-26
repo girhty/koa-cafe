@@ -1,0 +1,162 @@
+---
+// WebGL Interactive Three.js Hero Scene with Spring Leaning & Particle Field
+---
+
+<div class="absolute inset-0 z-0 overflow-hidden pointer-events-none" id="webgl-hero-container">
+  <canvas id="hero-3d-canvas" class="w-full h-full block"></canvas>
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-koa-oled/50 to-koa-oled pointer-events-none"></div>
+</div>
+
+<script>
+  import * as THREE from 'three';
+
+  const canvas = document.getElementById('hero-3d-canvas');
+  if (canvas instanceof HTMLCanvasElement) {
+    const scene = new THREE.Scene();
+    
+    // Camera
+    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.z = 7;
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      alpha: true,
+      antialias: true,
+      powerPreference: 'high-performance'
+    });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // Lights
+    const ambientLight = new THREE.AmbientLight(0xfff5ea, 0.9);
+    scene.add(ambientLight);
+
+    const amberPoint = new THREE.PointLight(0xe39d48, 4.5, 30);
+    amberPoint.position.set(4, 3, 4);
+    scene.add(amberPoint);
+
+    const creamPoint = new THREE.PointLight(0xf5eedb, 3, 20);
+    creamPoint.position.set(-4, -2, 3);
+    scene.add(creamPoint);
+
+    // Main 3D Floating Geometry: Kinetic Artisan Ring & Coffee Monolith
+    const group = new THREE.Group();
+    scene.add(group);
+
+    // Torus knot with obsidian/espresso iridescence
+    const knotGeo = new THREE.TorusKnotGeometry(1.4, 0.38, 140, 32, 2, 3);
+    const knotMat = new THREE.MeshPhysicalMaterial({
+      color: 0x1f140e,
+      roughness: 0.15,
+      metalness: 0.85,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.1,
+      reflectivity: 0.9,
+      transmission: 0.2,
+      thickness: 1.2,
+      emissive: 0x47230b,
+      emissiveIntensity: 0.25
+    });
+    const knotMesh = new THREE.Mesh(knotGeo, knotMat);
+    group.add(knotMesh);
+
+    // Subtle Outer Halo
+    const haloGeo = new THREE.TorusGeometry(2.3, 0.03, 16, 100);
+    const haloMat = new THREE.MeshBasicMaterial({
+      color: 0xe39d48,
+      transparent: true,
+      opacity: 0.45,
+      wireframe: true
+    });
+    const haloMesh = new THREE.Mesh(haloGeo, haloMat);
+    haloMesh.rotation.x = Math.PI / 2.3;
+    group.add(haloMesh);
+
+    // Coffee Steam & Ambient Dust Particles
+    const particleCount = 280;
+    const particleGeo = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    const particleScales = new Float32Array(particleCount);
+
+    for (let i = 0; i < particleCount * 3; i += 3) {
+      positions[i] = (Math.random() - 0.5) * 16;
+      positions[i + 1] = (Math.random() - 0.5) * 12;
+      positions[i + 2] = (Math.random() - 0.5) * 10;
+      particleScales[i / 3] = Math.random();
+    }
+
+    particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const particleMat = new THREE.PointsMaterial({
+      color: 0xf5b054,
+      size: 0.05,
+      transparent: true,
+      opacity: 0.6,
+      blending: THREE.AdditiveBlending
+    });
+    const particles = new THREE.Points(particleGeo, particleMat);
+    scene.add(particles);
+
+    // Mouse Coordinates & Springs
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let scrollY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    window.addEventListener('scroll', () => {
+      scrollY = window.scrollY;
+    });
+
+    // Resize handler
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    });
+
+    // Central Animation Loop with Spring Dampening
+    const clock = new THREE.Clock();
+    const animate = () => {
+      requestAnimationFrame(animate);
+      const elapsedTime = clock.getElapsedTime();
+
+      // Lerp mouse
+      targetX += (mouseX - targetX) * 0.04;
+      targetY += (mouseY - targetY) * 0.04;
+
+      // Group transformations reacting to mouse and scroll
+      group.rotation.x = elapsedTime * 0.15 + targetY * 0.8;
+      group.rotation.y = elapsedTime * 0.22 + targetX * 0.8;
+      group.position.x = targetX * 0.8;
+      group.position.y = targetY * 0.5 - (scrollY * 0.002);
+      
+      // Push back depth on scroll
+      group.position.z = -Math.min(scrollY * 0.004, 3.5);
+      const scrollScale = Math.max(0.7, 1 - scrollY * 0.0006);
+      group.scale.set(scrollScale, scrollScale, scrollScale);
+
+      haloMesh.rotation.z = elapsedTime * 0.1;
+
+      // Slowly float particles upwards simulating warm aroma
+      const posArray = particles.geometry.attributes.position.array;
+      for (let i = 1; i < particleCount * 3; i += 3) {
+        posArray[i] += 0.006;
+        if (posArray[i] > 6) {
+          posArray[i] = -6;
+        }
+      }
+      particles.geometry.attributes.position.needsUpdate = true;
+      particles.rotation.y = elapsedTime * 0.03 + targetX * 0.1;
+
+      renderer.render(scene, camera);
+    };
+
+    animate();
+  }
+</script>

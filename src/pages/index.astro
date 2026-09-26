@@ -1,0 +1,281 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ThreeHeroScene from '../components/ThreeHeroScene.astro';
+import BentoGrid from '../components/BentoGrid.astro';
+import AtmosphereSurface from '../components/AtmosphereSurface.astro';
+import InteractiveMapLocation from '../components/InteractiveMapLocation.astro';
+
+// Combined Google Places & Instagram Verified Dataset
+const placeData = {
+  name: "KOA CAFE - کۆوا کافێ",
+  rating: 4.4,
+  user_ratings_total: 119,
+  formatted_address: "Naz naz, Erbil, Erbil Governorate, 44001",
+  formatted_phone_number: "0750 208 1212",
+  opening_hours: {
+    open_now: true
+  },
+  photos: [
+    "https://lh3.googleusercontent.com/grass-cs/AABkmLcOtjJQ5Ve0HXpkDKt9zbC557Alt0FvoRKvJNpcr65IBGNeQRQkgdlXsu8Bv5kUt-Rx4l-DuAkPiyR6Va376vIC-PlPjCQgYJUM8z7YpWQV_dnlNWIWVcGfB-nHEwdsdhHFfpjH=w600-h450-p-k-no",
+    "https://lh3.googleusercontent.com/grass-cs/AABkmLer7VwUqo75k6hZswZkvjYblE7O6XN5sItg4gMOOEwv5ypHsn9by8-Q5XAq6XzxTCFK0dIJTr-Vq87pgVBAsLZEEyj0AAYSl2uQTB8i1Ylwpais_zX3BBsUPebWfYFDouUlcK89=w600-h450-p-k-no",
+    "https://lh3.googleusercontent.com/grass-cs/AABkmLcO_zBcZJFte-Cpvs83wZqd0_y0UDF8dYZWDW7nPt_UZtkmxtEbHCNproqeuKrDA-oqQCtBF1heHqMMbvOBQRaHkLH_2YiaFD2pS-Y9G5rSl7xCQcjvgoB_YO0QG_vb40rB6CQ=w600-h450-p-k-no",
+    "https://lh3.googleusercontent.com/grass-cs/AABkmLf9HcvQdPE0zftLc8UfqaVJp-d2BLO_g6zVUJLW_HBoAF9KDzVAyJovYlf1KA07Tw_yv7IHV3gZ1DSSGEqtfCZ1XE_ltg8Ql8yFRK9NjxDbaXXtakogkFDTKezKlgd3_1nLK9se=w600-h450-p-k-no",
+    "https://lh3.googleusercontent.com/grass-cs/AABkmLfqhOMn9Ws2g3dbfIWqHZZZFP_Q2wghE-iDSUo9EjugWldyHTMOBjxTg-rfSiplw_cdSbWnAxtsijz65U7hxvxC7kuUWwyoUiAnq3GVDQolxdrKuRbTYAOpb_9ERgdgPx2re2NgCpDrgrmS=w600-h450-p-k-no",
+    "https://lh3.googleusercontent.com/grass-cs/AABkmLfpcasfFAEGnkIzZaQ8Vl-jaP551YMZYba0O55sRsL0BWSijsuro6PE_X8rMmpM_NmXZbqqBKtbCw4gsdb4bu1YeUvmUVSyMj9rwmjbzKb5F-7GUOaECpG26xB0nhR2Z7G8HsDQ2T4L_Fl9=w600-h450-p-k-no",
+    "https://lh3.googleusercontent.com/grass-cs/AABkmLdCISxhkcKyPTfKFTgVR7T6Fa6eUBiTF_QcscTxnNEzDRq86ZlN-tQxTNOPirytlNEGflpGBNh7qB4Lk_xNyXLvy6yQQwIV34WQ2BOfIQ6C-P7cyjNo35D7YrvtUTT4lKQI_GlZrtnIFMM=w600-h450-p-k-no",
+    "https://lh3.googleusercontent.com/grass-cs/AABkmLfYjjECFf41HIvfVLbXdc6AaCUXqRlIjGgdLksoOhE3stT3dgGESQufDc6w5O0cUHqvFtX-c9TYXWeGtKyf-p_9H-rLiJ1SQn4QU-E9cqJzUNluhZPAAfVdfRmJznVxx86iOQyxWNuwj4Et=w600-h450-p-k-no",
+    "https://lh3.googleusercontent.com/grass-cs/AABkmLeuMfhIYpsOtoprbZIEDnyXwmMwFZoshmnXgm__gzApi-YMJ3_gmXBGPszq4b9D0Cdo7AoXbJIHh-vyvwXU4VNqKF_hOqpwJ9L1wDMvKuEyZ_MNfGncHnTbRN9drtLpuuJPvIq0QHJTxb3y=w600-h800-p-k-no"
+  ]
+};
+
+const instagramData = {
+  username: "the.koa.cafe",
+  name: "KOA Cafe - مقهى كوا",
+  biography: "Come visit us at Erbil Boulevard!\nWhere every cup tells a story ☕️\nOur Menu & Location 👇",
+  followers_count: 21617,
+  profile_pic: "https://scontent-ams2-1.cdninstagram.com/v/t51.2885-19/451575159_1107705423661238_2253562850980057177_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=101&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=lm6JPAGzRYkQ7kNvwEsiu9n&_nc_oc=AdrJ44XUL_3pmb96aE1PhdzRD7wpM6aG_dQDIN-mYjsJqX_mQzdaNLY9q7k7kh8_COI&_nc_zt=24&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_ss=79a8c&oh=00_AQIqy8DazLT_4fnMsTXpoWoGsX8hGbLjDzTA4Euj17Hc6w&oe=6ABDD65C",
+  posts: [
+    {
+      caption: "POV: You said “just one bite.” 🥪",
+      image_url: "https://scontent-ams2-1.cdninstagram.com/v/t51.82787-15/823153281_17954020587256028_5459309525023861827_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=101&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=QowbgTPY-gsQ7kNvwEd2y1R&_nc_oc=AdpMy69PBNQL9SVqfFt_yjJsn8-k840JzUgeIV9C8NsI3wjfNsg92dtytOHkI_e1X34&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=wSrvs1bg_NBrsvLmyTEB7A&_nc_ss=79a8c&oh=00_AQK-V78FY2XzE-mT26OVt5PtMd3rE0hfWoh7w1i-s113Kw&oe=6ABDF543",
+      likes: 0
+    },
+    {
+      caption: "Just one more bite",
+      image_url: "https://scontent-ams2-1.cdninstagram.com/v/t51.82787-15/817191746_17953630518256028_7586526095381023872_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=101&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=oI_4qodBoY4Q7kNvwETjzIp&_nc_oc=AdoQdG-h7O6RKnh3FcuD-bv6MhNVBozW6V4rpj8bbgwNQEetGtjqdi0Pq0WxUzw4b-Q&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=wSrvs1bg_NBrsvLmyTEB7A&_nc_ss=79a8c&oh=00_AQL_iWSxtR42b9tj0FRq5LVflSgtQtzPStNtYGLWr2vT6w&oe=6ABDD6F3",
+      likes: 0
+    },
+    {
+      caption: "Favourite coffee and the cutest coffee holder 🥹🤎🤎🤎🤎 @the.koa.cafe #explore #aesthetic",
+      image_url: "https://scontent-ams2-1.cdninstagram.com/v/t51.82787-15/794647138_18123940765855803_7112205035118645444_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=101&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=hHPOykujzJEQ7kNvwEf6NCo&_nc_oc=AdrsxzKpO2qt0lWXfOQbmap7Z3Vuwj4fbXqi_GL0JVYhyZ9u5r63VyMw7yrsHTOgbgI&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=wSrvs1bg_NBrsvLmyTEB7A&_nc_ss=79a8c&oh=00_AQIBcnwAadQJpvkLuMogNbGrT0cg9Bd2YYRKgn-BPQpreg&oe=6ABDF0F1",
+      likes: 0
+    },
+    {
+      caption: "Coffee date with sisi💖🎀",
+      image_url: "https://scontent-ams2-1.cdninstagram.com/v/t51.82787-15/794772649_18102777332111396_4617525597045035492_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=104&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=ZAUM6NP8X-0Q7kNvwG4tqB1&_nc_oc=AdpyagYgYNfQygIXWfdAbaqZA96Uw9R82GEQMMnrRxTZ_QUd_GqS2TXJhlsVbgsWB28&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=wSrvs1bg_NBrsvLmyTEB7A&_nc_ss=79a8c&oh=00_AQJXvzkZt1rZd9t22D98DZPYT2RZgoZkMmt_vqBB8lj6UQ&oe=6ABDD24F",
+      likes: 0
+    },
+    {
+      caption: "the.koa.cafe تەنها لەناو ئەپلیکەیشنی لەزوو بەردەستە! ☕️✨",
+      image_url: "https://scontent-ams2-1.cdninstagram.com/v/t51.82787-15/809209121_18382458565225910_1143814262683555110_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=101&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=tCcFZiFZH1kQ7kNvwHp27W8&_nc_oc=AdpR4eaaeJDPbkHJYo8fqLzQJjfeIZnOBPsLl1W0IffGe5w6HLjj8mFIszkHgPQmG7Q&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=wSrvs1bg_NBrsvLmyTEB7A&_nc_ss=79a8c&oh=00_AQJJ9eBcfow-9-jvjpRtKUz4quIfTCBIDS9HdZcHQb-uow&oe=6ABDE335",
+      likes: 0
+    },
+    {
+      caption: "Some knocks are definitely worth rolling the window down for. #koacafe #boulevard",
+      image_url: "https://scontent-ams2-1.cdninstagram.com/v/t51.82787-15/806280623_17952588000256028_5439284911362432482_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=110&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=zrDIrOtIowsQ7kNvwGlT2Ft&_nc_oc=AdoWjDW5VcHFS2afyGL0Upe9cNLO_WihiN6TcyNuUO3FqVtgVhVV9UBhhVawRIjCnYs&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=wSrvs1bg_NBrsvLmyTEB7A&_nc_ss=79a8c&oh=00_AQKVzFAX9ma5BY46jWwHnHuZd3YTNoYsgGlKEspZ62JT_A&oe=6ABDD74F",
+      likes: 0
+    },
+    {
+      caption: "in every sip at Koa there’s refreshment. لە هەر خواردنەوەیەک لە KOA، چێژێکی تایبەتە",
+      image_url: "https://scontent-ams2-1.cdninstagram.com/v/t51.82787-15/789264111_17952349374256028_7017259552786592787_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=103&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=euAZ-P0LEzgQ7kNvwF6G2W3&_nc_oc=AdosDWzuxDfagsjTAHYl1oUu3VqJj-eCvujOv1ct0fhlcMOZzWkrwzy5EIlWO4ZgGA0&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=wSrvs1bg_NBrsvLmyTEB7A&_nc_ss=79a8c&oh=00_AQKQckLV_Ji2o_GBF9yL53vOtM5Rvd37gJxp2I_Voe-kTg&oe=6ABDD621",
+      likes: 0
+    },
+    {
+      caption: "where Koa makes up for the hot summer شوێنێکی سارد بۆ ساتە گەرمەکانی هاوین",
+      image_url: "https://scontent-ams2-1.cdninstagram.com/v/t51.82787-15/800540271_17952005076256028_582814255727492812_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=111&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=3Gd3L0v5U20Q7kNvwEVFpni&_nc_oc=Adrrcq0_G15SbX7RzPN9Ie4O5BugscA2JJbMSYkK_us0dEF8XY88DJc8jaGqQgh8enM&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=wSrvs1bg_NBrsvLmyTEB7A&_nc_ss=79a8c&oh=00_AQKgLUozH4U_Ss3ioKL2cV2aSuLQzbBcwhPHDtRKreeFZg&oe=6ABDED18",
+      likes: 0
+    },
+    {
+      caption: "koa coffee is made for you قاوەی كوا بۆ تۆ دروست کراوە.",
+      image_url: "https://scontent-ams2-1.cdninstagram.com/v/t51.82787-15/800617167_17951759481256028_353125737501604356_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=104&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=SV62bQA19P0Q7kNvwFjJhCF&_nc_oc=AdrAjyoUCuQOET6P4DUR_GCsl2YLs_ZXJ5-fYsP5fyN6EsLEYkeza6JzIbr3tara-4g&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=wSrvs1bg_NBrsvLmyTEB7A&_nc_ss=79a8c&oh=00_AQKQVz7ePWjBQs88UonXKS-RyyR5pAHF5HvYHAdeIaqYyg&oe=6ABDD9A0",
+      likes: 0
+    },
+    {
+      caption: "A table worth sharing. مێزێک بۆ هاوبەشکردنی ساتە خۆشەکان",
+      image_url: "https://scontent-ams2-1.cdninstagram.com/v/t51.82787-15/797088108_17951456406256028_4068573288214623361_n.jpg?stp=dst-jpg_e35_s640x640_tt6&_nc_cat=101&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=DC55p42Fsn8Q7kNvwHpAXTn&_nc_oc=AdqTNJ6hzy7kYtH1LLCpmnoi7NMzVy1mXJYlz6f_0XEXjV-EPmD8Fpdal9N7LgsB4kM&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=wSrvs1bg_NBrsvLmyTEB7A&_nc_ss=79a8c&oh=00_AQJcayzQDPLz1idZGs0zFQSDb42jhEx_kuUz-H6HinaX-A&oe=6ABDC93D",
+      likes: 0
+    }
+  ]
+};
+---
+
+<Layout 
+  title="KOA CAFE - کۆوا کافێ | Erbil Boulevard Specialty Venue"
+  description="Come visit KOA Cafe at Erbil Boulevard! Where every cup tells a story. Specialty coffee, artisan bites, and immersive spatial design."
+>
+  <main class="relative bg-koa-oled">
+
+    <!-- HERO SECTION WITH PROCEDURAL THREE.JS & OPALESCENT VIBE -->
+    <section id="hero" class="relative min-h-[92vh] flex items-center justify-center px-6 pt-28 pb-16 overflow-hidden">
+      <!-- 3D WebGL Background Component -->
+      <ThreeHeroScene />
+
+      <!-- Hero Overlay Content -->
+      <div class="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
+        
+        <!-- Live Verified Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-koa-amber/40 bg-koa-oled/80 backdrop-blur-md mb-8 shadow-xl shadow-koa-amber/10 animate-fade-in">
+          <div class="w-2.5 h-2.5 rounded-full bg-koa-gold animate-pulse"></div>
+          <span class="font-mono text-xs uppercase tracking-widest text-koa-gold">
+            Erbil Boulevard • Naz naz, Erbil
+          </span>
+          <span class="text-white/40 font-mono">|</span>
+          <span class="text-white font-mono text-xs font-semibold">⭐ 4.4 Google Reviews</span>
+        </div>
+
+        <!-- Grand Dual Title with Kurdish Accent -->
+        <div class="space-y-2 mb-6">
+          <h1 class="font-display font-black text-5xl sm:text-7xl md:text-8xl lg:text-9xl tracking-tight text-white uppercase leading-[0.9] select-none">
+            KOA CAFE
+          </h1>
+          <p class="font-kurdish font-bold text-2xl sm:text-4xl text-koa-latte/90 tracking-wide mt-2">
+            کۆوا کافێ
+          </p>
+        </div>
+
+        <!-- Script Accent -->
+        <div class="font-serif italic text-xl sm:text-2xl text-koa-amber max-w-2xl mx-auto mb-8 font-light">
+          "Where every cup tells a story ☕️"
+        </div>
+
+        <!-- Subtitle Context -->
+        <p class="font-normal text-sm sm:text-base text-koa-latte/80 max-w-xl mx-auto leading-relaxed mb-10">
+          Nestled along the Erbil Boulevard, KOA crafts deliberate specialty coffee, crisp pastries, and an atmosphere calibrated for both deep focus and vibrant evenings.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+          <a 
+            href="#bento" 
+            class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-koa-amber to-koa-gold text-black font-display font-black text-sm uppercase tracking-wider shadow-lg shadow-koa-amber/25 hover:scale-105 hover:brightness-110 transition-all text-center"
+          >
+            Explore Curations
+          </a>
+          <a 
+            href="#location" 
+            class="w-full sm:w-auto px-8 py-4 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-white font-display font-bold text-sm uppercase tracking-wider hover:bg-white hover:text-black transition-all text-center"
+          >
+            Visit Boulevard
+          </a>
+          <a 
+            href="tel:07502081212"
+            class="w-full sm:w-auto px-6 py-4 rounded-full border border-koa-amber/40 text-koa-gold font-mono text-xs tracking-wider hover:bg-koa-amber/10 transition-colors flex items-center justify-center gap-2"
+          >
+            <span>📞</span> 0750 208 1212
+          </a>
+        </div>
+
+        <!-- Floating Metadata Chips -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-16 pt-8 border-t border-white/10 w-full max-w-3xl text-left font-mono text-xs text-koa-latte/60">
+          <div>
+            <span class="block text-white font-semibold">21.6K+</span>
+            <span>Followers on IG</span>
+          </div>
+          <div>
+            <span class="block text-white font-semibold">119+ Reviews</span>
+            <span>4.4 Google Score</span>
+          </div>
+          <div>
+            <span class="block text-white font-semibold">Lezzoo Partner</span>
+            <span>Express Delivery</span>
+          </div>
+          <div>
+            <span class="block text-emerald-400 font-semibold">Open Daily</span>
+            <span>Until 12:00 Midnight</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Scroll Indicator -->
+      <a href="#atmosphere" class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-koa-latte/50 hover:text-white transition-colors group">
+        <span class="font-mono text-[10px] tracking-widest uppercase">Scroll Down</span>
+        <div class="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center p-1">
+          <div class="w-1 h-2 rounded-full bg-koa-amber animate-bounce"></div>
+        </div>
+      </a>
+    </section>
+
+    <!-- ALTERNATING BONE SURFACE: ATMOSPHERE & ROAST PHILOSOPHY -->
+    <AtmosphereSurface photos={placeData.photos} />
+
+    <!-- INTERACTIVE 3D BENTO GRID (INSTAGRAM + GOOGLE INTEGRATION) -->
+    <BentoGrid posts={instagramData.posts} photos={placeData.photos} />
+
+    <!-- SPECIAL CURATION HIGHLIGHT: SIGNATURE DRINKS & PAIRINGS -->
+    <section class="py-24 px-6 bg-koa-oled relative z-10 border-t border-white/10">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <span class="font-mono text-xs uppercase tracking-widest text-koa-amber block mb-2">Refined Selection</span>
+          <h2 class="font-display font-black text-3xl sm:text-5xl text-white">Specially Formulated</h2>
+          <p class="font-kurdish text-koa-latte/80 mt-2 text-base">
+            قاوەی كوا بۆ تۆ دروست کراوە
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Item 1 -->
+          <div class="p-8 rounded-3xl bg-koa-card border border-white/10 hover:border-koa-amber/40 transition-all group flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-6">
+                <span class="font-mono text-xs text-koa-amber">SPECIALTY BREW</span>
+                <span class="w-2 h-2 rounded-full bg-koa-amber"></span>
+              </div>
+              <h3 class="font-display font-bold text-2xl text-white group-hover:text-koa-gold transition-colors mb-3">
+                Koa V60 Single Origin
+              </h3>
+              <p class="text-sm text-koa-cream/70 leading-relaxed font-light mb-6">
+                Meticulously extracted through Japanese Hario drippers to reveal peach blossom, jasmine, and citrus zest undertones.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-white/10 flex items-center justify-between font-mono text-xs">
+              <span class="text-koa-latte/60">Dialed in fresh daily</span>
+              <span class="text-koa-gold font-bold">Hot / Iced</span>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="p-8 rounded-3xl bg-koa-card border border-koa-amber/30 hover:border-koa-amber transition-all group flex flex-col justify-between relative shadow-xl shadow-koa-amber/5">
+            <div class="absolute -top-3 right-6 px-3 py-1 bg-koa-amber text-black font-mono text-[10px] font-bold uppercase rounded-full">
+              Guest Favorite
+            </div>
+            <div>
+              <div class="flex justify-between items-start mb-6">
+                <span class="font-mono text-xs text-koa-amber">COLD SIGNATURE</span>
+                <span class="w-2 h-2 rounded-full bg-koa-gold"></span>
+              </div>
+              <h3 class="font-display font-bold text-2xl text-white group-hover:text-koa-gold transition-colors mb-3">
+                Spanish & Salted Toffee Latte
+              </h3>
+              <p class="text-sm text-koa-cream/70 leading-relaxed font-light mb-6">
+                Silky espresso shaken over condensed dairy and our in-house caramelized toffee reduction with fleur de sel.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-white/10 flex items-center justify-between font-mono text-xs">
+              <span class="text-koa-latte/60">Includes custom holder</span>
+              <span class="text-koa-gold font-bold">Aesthetic Cup</span>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="p-8 rounded-3xl bg-koa-card border border-white/10 hover:border-koa-amber/40 transition-all group flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-6">
+                <span class="font-mono text-xs text-koa-amber">ARTISAN DELI</span>
+                <span class="w-2 h-2 rounded-full bg-koa-amber"></span>
+              </div>
+              <h3 class="font-display font-bold text-2xl text-white group-hover:text-koa-gold transition-colors mb-3">
+                Toasted Brioche & Melts
+              </h3>
+              <p class="text-sm text-koa-cream/70 leading-relaxed font-light mb-6">
+                "You said just one bite." Golden buttered artisan brioche layered with premium cheeses and savory fills.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-white/10 flex items-center justify-between font-mono text-xs">
+              <span class="text-koa-latte/60">Baked & grilled to order</span>
+              <span class="text-koa-gold font-bold">Fresh Daily</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE MAP & VENUE GEOMETRY -->
+    <InteractiveMapLocation 
+      address={placeData.formatted_address}
+      phone={placeData.formatted_phone_number}
+      photos={placeData.photos}
+    />
+
+  </main>
+</Layout>

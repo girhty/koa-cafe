@@ -1,0 +1,114 @@
+---
+interface Props {
+  photos: string[];
+}
+
+const { photos } = Astro.props;
+---
+
+<!-- Alternating Bone/Cream Surface Section to maximize visual tactile contrast -->
+<section id="atmosphere" class="py-28 px-6 bg-koa-bone text-black relative z-10 overflow-hidden">
+  <div class="max-w-7xl mx-auto">
+    <!-- Top Eyebrow -->
+    <div class="max-w-2xl mb-16">
+      <span class="font-mono text-xs uppercase tracking-widest text-koa-espresso font-semibold block mb-2">
+        Tactile Architecture & Sensorial Coffee
+      </span>
+      <h2 class="font-display font-black text-4xl sm:text-6xl text-koa-espresso tracking-tight leading-none mb-6">
+        Designed for conversations, crafted for pause.
+      </h2>
+      <p class="font-serif italic text-2xl text-koa-espresso/80">
+        "Where every cup tells a story."
+      </p>
+    </div>
+
+    <!-- 3-Column Architectural Display -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+      <!-- Col 1 -->
+      <div class="bg-white/80 backdrop-blur-md rounded-3xl p-6 shadow-xl border border-black/5 flex flex-col justify-between group hover:-translate-y-2 transition-transform duration-300">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-6 bg-koa-espresso/10">
+          <img 
+            src={photos[5] || photos[0]} 
+            alt="KOA Interior Details" 
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+            loading="lazy"
+          />
+        </div>
+        <div>
+          <span class="font-mono text-xs text-koa-amber font-bold uppercase tracking-wider block mb-1">01 / The Roast</span>
+          <h3 class="font-display font-bold text-xl text-koa-espresso mb-2">Artisanal Extraction</h3>
+          <p class="text-sm text-koa-espresso/75 leading-relaxed font-normal">
+            Sourced ethically from single-origin growers, dialed into precision profiles for velvety pour-overs and dense, aromatic espresso shots.
+          </p>
+        </div>
+      </div>
+
+      <!-- Col 2 -->
+      <div class="bg-white/80 backdrop-blur-md rounded-3xl p-6 shadow-xl border border-black/5 flex flex-col justify-between group hover:-translate-y-2 transition-transform duration-300">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-6 bg-koa-espresso/10">
+          <img 
+            src={photos[6] || photos[1]} 
+            alt="KOA Erbil Boulevard View" 
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+            loading="lazy"
+          />
+        </div>
+        <div>
+          <span class="font-mono text-xs text-koa-amber font-bold uppercase tracking-wider block mb-1">02 / The Space</span>
+          <h3 class="font-display font-bold text-xl text-koa-espresso mb-2">Erbil Boulevard Presence</h3>
+          <p class="text-sm text-koa-espresso/75 leading-relaxed font-normal">
+            Warm organic neutrals meet minimal brutalist finishes. Designed as a sanctuary from the vibrant pulse of Erbil's prime boulevard.
+          </p>
+        </div>
+      </div>
+
+      <!-- Col 3 -->
+      <div class="bg-white/80 backdrop-blur-md rounded-3xl p-6 shadow-xl border border-black/5 flex flex-col justify-between group hover:-translate-y-2 transition-transform duration-300">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-6 bg-koa-espresso/10">
+          <img 
+            src={photos[7] || photos[2]} 
+            alt="Fresh Bites & Delights" 
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+            loading="lazy"
+          />
+        </div>
+        <div>
+          <span class="font-mono text-xs text-koa-amber font-bold uppercase tracking-wider block mb-1">03 / The Bakery</span>
+          <h3 class="font-display font-bold text-xl text-koa-espresso mb-2">Savory & Sweet Pairings</h3>
+          <p class="text-sm text-koa-espresso/75 leading-relaxed font-normal">
+            Flaky morning pastries, toasted brioche creations, and artisanal confectioneries baked fresh every sunrise.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Rolling Stats Strip -->
+    <div class="rounded-3xl bg-koa-espresso text-koa-cream p-8 md:p-12 flex flex-wrap items-center justify-around gap-8 shadow-2xl">
+      <div class="text-center">
+        <div class="font-display font-black text-4xl md:text-5xl text-koa-amber mb-1">4.4★</div>
+        <p class="font-mono text-xs uppercase tracking-widest text-koa-latte/70">Google Place Rating</p>
+      </div>
+
+      <div class="w-px h-12 bg-white/10 hidden md:block"></div>
+
+      <div class="text-center">
+        <div class="font-display font-black text-4xl md:text-5xl text-koa-gold mb-1">21.6K+</div>
+        <p class="font-mono text-xs uppercase tracking-widest text-koa-latte/70">Instagram Community</p>
+      </div>
+
+      <div class="w-px h-12 bg-white/10 hidden md:block"></div>
+
+      <div class="text-center">
+        <div class="font-display font-black text-4xl md:text-5xl text-white mb-1">100%</div>
+        <p class="font-mono text-xs uppercase tracking-widest text-koa-latte/70">Specialty Arabica</p>
+      </div>
+
+      <div class="w-px h-12 bg-white/10 hidden md:block"></div>
+
+      <div class="text-center">
+        <div class="font-display font-black text-4xl md:text-5xl text-emerald-400 mb-1">08:00 - 24:00</div>
+        <p class="font-mono text-xs uppercase tracking-widest text-koa-latte/70">Daily Operating Window</p>
+      </div>
+    </div>
+  </div>
+</section>

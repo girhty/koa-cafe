@@ -1,0 +1,160 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { 
+  title = "KOA CAFE - کۆوا کافێ | Erbil Boulevard Specialty Venue",
+  description = "Where every cup tells a story. KOA Cafe brings artisanal specialty coffee, refined pastries, and immersive atmosphere to Erbil Boulevard."
+} = Astro.props;
+
+const brandProfilePic = "https://scontent-ams2-1.cdninstagram.com/v/t51.2885-19/451575159_1107705423661238_2253562850980057177_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=101&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=lm6JPAGzRYkQ7kNvwEsiu9n&_nc_oc=AdrJ44XUL_3pmb96aE1PhdzRD7wpM6aG_dQDIN-mYjsJqX_mQzdaNLY9q7k7kh8_COI&_nc_zt=24&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_ss=79a8c&oh=00_AQIqy8DazLT_4fnMsTXpoWoGsX8hGbLjDzTA4Euj17Hc6w&oe=6ABDD65C";
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth bg-koa-oled text-koa-cream selection:bg-koa-amber selection:text-black">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={brandProfilePic} />
+    
+    <!-- Google Fonts Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=JetBrains+Mono:wght@300;400;600&family=Noto+Sans+Arabic:wght@400;600;700&family=Syne:wght@500;700;800;900&display=swap" rel="stylesheet">
+  </head>
+  <body class="overflow-x-hidden antialiased bg-koa-oled relative min-h-screen">
+    <!-- Dynamic Header -->
+    <header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 py-4 backdrop-blur-md bg-koa-oled/60 border-b border-white/5">
+      <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <a href="#hero" class="flex items-center gap-3 group">
+          <div class="relative w-11 h-11 rounded-full p-[2px] bg-gradient-to-tr from-koa-amber via-yellow-200 to-transparent shadow-[0_0_20px_rgba(227,157,72,0.3)] transition-transform duration-500 group-hover:scale-110">
+            <img 
+              src={brandProfilePic} 
+              alt="KOA Cafe Brand Logo" 
+              class="w-full h-full object-cover rounded-full bg-koa-surface"
+              onerror="this.src='/favicon.svg'"
+            />
+          </div>
+          <div class="flex flex-col">
+            <span class="font-display font-extrabold tracking-wider text-lg leading-none uppercase text-white group-hover:text-koa-gold transition-colors">
+              KOA CAFE
+            </span>
+            <span class="font-kurdish text-xs tracking-normal text-koa-latte/70 font-semibold mt-0.5">
+              کۆوا کافێ
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-8 font-mono text-xs tracking-widest uppercase">
+          <a href="#experience" class="hover:text-koa-amber transition-colors">3D Experience</a>
+          <a href="#atmosphere" class="hover:text-koa-amber transition-colors">Atmosphere</a>
+          <a href="#bento" class="hover:text-koa-amber transition-colors">Curations</a>
+          <a href="#location" class="hover:text-koa-amber transition-colors">Boulevard Location</a>
+        </nav>
+
+        <div class="flex items-center gap-4">
+          <!-- Real-Time Status Pill -->
+          <div class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 font-mono text-[11px]">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>OPEN NOW • ERBIL BLVD</span>
+          </div>
+
+          <a 
+            href="https://www.instagram.com/the.koa.cafe/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="px-4 py-2 rounded-full bg-koa-cream text-black font-display font-bold text-xs uppercase tracking-wider hover:bg-koa-amber hover:text-white transition-all duration-300 shadow-md hover:shadow-koa-amber/30 hover:scale-105"
+          >
+            @the.koa.cafe
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Slot for Main Content -->
+    <slot />
+
+    <!-- Cinematic Footer -->
+    <footer class="relative z-10 border-t border-white/10 bg-black pt-16 pb-12 px-6 overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+          <div class="space-y-4 md:col-span-2">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full border border-koa-amber/50 overflow-hidden">
+                <img src={brandProfilePic} alt="KOA Cafe" class="w-full h-full object-cover" />
+              </div>
+              <h3 class="font-display font-black text-2xl tracking-wider text-white">KOA CAFE • کۆوا کافێ</h3>
+            </div>
+            <p class="font-light text-koa-latte/80 text-sm max-w-md leading-relaxed">
+              Where every cup tells a story. Crafting extraordinary specialty roasts, delicate sandwiches, and tactile sensory moments in the heart of Erbil.
+            </p>
+            <div class="font-mono text-xs text-koa-amber tracking-wider flex items-center gap-3">
+              <span>⭐ 4.4 ON GOOGLE (119 REVIEWS)</span>
+              <span>•</span>
+              <span>21.6K+ ON INSTAGRAM</span>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-mono text-xs text-koa-latte/50 uppercase tracking-widest mb-4">Location & Hours</h4>
+            <address class="not-italic text-sm text-gray-300 space-y-2">
+              <p>Erbil Boulevard</p>
+              <p>Naz naz, Erbil Governorate, 44001</p>
+              <p class="text-koa-gold font-mono text-xs pt-1">Tel: 0750 208 1212</p>
+              <p class="text-xs text-emerald-400 font-mono">Open Daily: 8:00 AM – Midnight</p>
+            </address>
+          </div>
+
+          <div>
+            <h4 class="font-mono text-xs text-koa-latte/50 uppercase tracking-widest mb-4">Fast Ordering</h4>
+            <p class="text-xs text-koa-cream/70 leading-relaxed mb-3">
+              Available exclusively on the Lezzoo app across Erbil.
+            </p>
+            <a 
+              href="https://lezzoo.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="inline-block text-xs font-mono font-semibold px-4 py-2 border border-koa-amber/50 rounded-lg text-koa-amber hover:bg-koa-amber hover:text-black transition-all"
+            >
+              Order on Lezzoo →
+            </a>
+          </div>
+        </div>
+
+        <div class="border-t border-white/5 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-mono text-koa-cream/40">
+          <p>© {new Date().getFullYear()} KOA CAFE (کۆوا کافێ). All rights reserved.</p>
+          <p class="flex items-center gap-2">
+            <span>Specialty Roasts & Spatial Experience</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-koa-amber"></span>
+            <span>Erbil, Kurdistan Region</span>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Background Dynamic Canvas & Cursor Script -->
+    <script>
+      // Header surface adaptation watcher
+      window.addEventListener('scroll', () => {
+        const header = document.getElementById('site-header');
+        if (!header) return;
+        if (window.scrollY > 40) {
+          header.classList.add('bg-koa-oled/90', 'shadow-2xl');
+          header.classList.remove('bg-koa-oled/60');
+        } else {
+          header.classList.add('bg-koa-oled/60');
+          header.classList.remove('bg-koa-oled/90', 'shadow-2xl');
+        }
+      });
+    </script>
+  </body>
+</html>

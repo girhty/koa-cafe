@@ -1,0 +1,221 @@
+---
+interface Post {
+  caption: string;
+  image_url: string;
+  likes: number;
+}
+
+interface Props {
+  posts: Post[];
+  photos: string[];
+}
+
+const { posts, photos } = Astro.props;
+---
+
+<section id="bento" class="py-24 px-6 relative z-10 bg-[#0a0a0a]">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-8 h-[2px] bg-koa-amber"></span>
+          <span class="font-mono text-xs uppercase tracking-widest text-koa-amber">Instagram & Gallery Feed</span>
+        </div>
+        <h2 class="font-display font-black text-3xl sm:text-5xl text-white tracking-tight">
+          Sip, Savor & Socials.
+        </h2>
+        <p class="font-kurdish text-lg text-koa-latte/80 mt-1">
+          لە هەر خواردنەوەیەک لە KOA، چێژێکی تایبەتە
+        </p>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a 
+          href="https://www.instagram.com/the.koa.cafe/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest px-5 py-3 rounded-xl border border-white/10 hover:border-koa-amber/80 bg-white/5 hover:bg-koa-amber/10 transition-all text-white group"
+        >
+          <span>Follow @the.koa.cafe</span>
+          <span class="transition-transform group-hover:translate-x-1">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Bento Grid Container -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 auto-rows-[290px]">
+      
+      <!-- Card 1: Large Feature Post -->
+      <div class="tilt-card sm:col-span-2 lg:col-span-2 row-span-2 rounded-3xl overflow-hidden relative group border border-white/10 bg-koa-surface">
+        <img 
+          src={posts[0]?.image_url || photos[0]} 
+          alt="KOA Signature Dish" 
+          class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90 group-hover:opacity-75 transition-opacity"></div>
+        <div class="absolute top-6 left-6 flex items-center gap-2">
+          <span class="px-3 py-1 bg-koa-amber text-black font-mono text-xs font-bold rounded-full uppercase tracking-wider">
+            Signature Curation
+          </span>
+          <span class="px-3 py-1 bg-black/60 backdrop-blur-md text-white/90 font-mono text-xs rounded-full">
+            Erbil Boulevard
+          </span>
+        </div>
+        <div class="absolute bottom-6 left-6 right-6">
+          <p class="font-display font-bold text-2xl text-white mb-2 leading-snug">
+            {posts[0]?.caption || "POV: You said 'just one bite.' 🥪"}
+          </p>
+          <div class="flex items-center justify-between text-xs font-mono text-koa-latte/70 pt-2 border-t border-white/15">
+            <span class="flex items-center gap-1.5 text-koa-gold">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              Loved by Erbil
+            </span>
+            <span class="text-white">@the.koa.cafe</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Coffee & Cute Holder -->
+      <div class="tilt-card rounded-3xl overflow-hidden relative group border border-white/10 bg-koa-surface">
+        <img 
+          src={posts[2]?.image_url || photos[1]} 
+          alt="Favourite coffee & cutest holder" 
+          class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+        <div class="absolute bottom-4 left-4 right-4">
+          <p class="font-mono text-xs text-white/90 font-medium line-clamp-2 mb-2">
+            Favourite coffee and the cutest coffee holder 🥹🤎
+          </p>
+          <span class="text-[10px] font-mono text-koa-amber uppercase tracking-wider">Aesthetic Collection</span>
+        </div>
+      </div>
+
+      <!-- Card 3: Interactive Lezzoo Delivery Promo -->
+      <div class="tilt-card rounded-3xl overflow-hidden relative group border border-koa-amber/30 bg-gradient-to-br from-[#1c140d] via-koa-surface to-black p-6 flex flex-col justify-between">
+        <div class="space-y-2">
+          <div class="w-8 h-8 rounded-full bg-koa-amber/20 border border-koa-amber flex items-center justify-center text-koa-gold">
+            ⚡
+          </div>
+          <span class="font-mono text-[11px] text-koa-amber uppercase tracking-widest block">Instant Order</span>
+          <h3 class="font-display font-bold text-xl text-white">Exclusive on Lezzoo</h3>
+          <p class="font-kurdish text-xs text-koa-latte/80 leading-relaxed">
+            تەنها لەناو ئەپلیکەیشنی لەزوو بەردەستە! ئێستا دەتوانن داوا بکەن
+          </p>
+        </div>
+        <div>
+          <a 
+            href="https://lezzoo.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="w-full py-2.5 px-4 rounded-xl bg-koa-amber hover:bg-white text-black font-display font-bold text-xs uppercase tracking-wider transition-colors text-center block"
+          >
+            Order Delivery Now
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 4: Knock & Car Experience -->
+      <div class="tilt-card rounded-3xl overflow-hidden relative group border border-white/10 bg-koa-surface">
+        <img 
+          src={posts[5]?.image_url || photos[2]} 
+          alt="Drive-by Erbil Boulevard coffee" 
+          class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+        <div class="absolute bottom-4 left-4 right-4">
+          <p class="font-mono text-xs text-white/95 line-clamp-2 mb-1">
+            "Some knocks are definitely worth rolling the window down for." 🚗☕
+          </p>
+          <span class="text-[10px] font-mono text-koa-latte/60">#koacafe #boulevard</span>
+        </div>
+      </div>
+
+      <!-- Card 5: Summer Sips Refreshment -->
+      <div class="tilt-card rounded-3xl overflow-hidden relative group border border-white/10 bg-koa-surface">
+        <img 
+          src={posts[7]?.image_url || photos[3]} 
+          alt="Koa Cold Drinks" 
+          class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+        <div class="absolute bottom-4 left-4 right-4">
+          <p class="font-kurdish text-sm text-white font-medium mb-1">
+            شوێنێکی سارد بۆ ساتە گەرمەکانی هاوین ❄️
+          </p>
+          <span class="text-[10px] font-mono text-koa-gold uppercase">Iced Specialty Brews</span>
+        </div>
+      </div>
+
+      <!-- Card 6: Table Worth Sharing -->
+      <div class="tilt-card sm:col-span-2 rounded-3xl overflow-hidden relative group border border-white/10 bg-koa-surface">
+        <img 
+          src={posts[9]?.image_url || photos[4]} 
+          alt="A table worth sharing" 
+          class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+        <div class="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+          <div>
+            <h4 class="font-display font-bold text-xl text-white">A table worth sharing.</h4>
+            <p class="font-kurdish text-xs text-koa-latte/80 mt-1">مێزێک بۆ هاوبەشکردنی ساتە خۆشەکان لەگەڵ دۆستان</p>
+          </div>
+          <span class="px-3 py-1.5 rounded-full border border-white/20 font-mono text-xs text-white bg-black/40 backdrop-blur-md">
+            Gather & Unwind
+          </span>
+        </div>
+      </div>
+
+      <!-- Card 7: Google Review Highlight Badge -->
+      <div class="tilt-card rounded-3xl overflow-hidden relative border border-white/10 bg-[#141210] p-6 flex flex-col justify-between">
+        <div class="flex items-center justify-between">
+          <div class="flex text-amber-400 gap-1 text-sm">
+            ★★★★★
+          </div>
+          <span class="font-mono text-xs text-koa-latte/60">Google Verified</span>
+        </div>
+        <p class="font-display italic text-base text-gray-200 leading-snug">
+          "The atmosphere at Erbil Boulevard is incomparable. Great coffee and impeccable aesthetics."
+        </p>
+        <div class="font-mono text-xs text-koa-amber flex items-center justify-between">
+          <span>4.4 / 5.0 Rating</span>
+          <span>119 reviews</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Tilt Physics Interactive Script -->
+<script>
+  const tiltCards = document.querySelectorAll('.tilt-card');
+
+  tiltCards.forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const mouseEvent = e as MouseEvent;
+      const rect = card.getBoundingClientRect();
+      const x = mouseEvent.clientX - rect.left;
+      const y = mouseEvent.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * -8;
+      const rotateY = ((x - centerX) / centerX) * 8;
+
+      (card as HTMLElement).style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+      (card as HTMLElement).style.transition = 'transform 0.1s ease-out';
+    });
+
+    card.addEventListener('mouseleave', () => {
+      (card as HTMLElement).style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      (card as HTMLElement).style.transition = 'transform 0.5s ease-out';
+    });
+  });
+</script>
